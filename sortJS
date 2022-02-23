@@ -1,0 +1,17 @@
+
+$(function() {   
+    $('#sortable').sortable({
+        axis: 'y',
+        items: '.draggable',
+        start: function () {
+            $(this).find("tr:not(.draggable)").each(function () {
+                $(this).data("fixedIndex", $(this).index());
+            });
+        },        
+        change: function () {
+            $(this).find("tr:not(.draggable)").each(function () {
+                $(this).detach().insertAfter($("#sortable tr:eq(" + ($(this).data("fixedIndex")-1) + ")"));
+            });
+        }
+    });
+});
